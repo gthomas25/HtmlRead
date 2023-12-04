@@ -21,11 +21,29 @@ public class HtmlRead {
             while ( (line = reader.readLine()) != null ) {
                 if(line.contains("href")){
                     int indexSpot= line.indexOf("href");
-                    System.out.println(line.substring(indexSpot+6));
+                    //System.out.println(line.substring(indexSpot+6));
                     String html = line.substring(indexSpot+6);
-                    int htmlspot= line.indexOf("\"" );
-                    System.out.println(line.substring(indexSpot+ 0));
+                    int htmlspot= html.indexOf("\"" );
+                    int htmlspot2= html.indexOf("'" );
 
+                   // System.out.println(htmlspot);
+                   // System.out.println(htmlspot2);
+                    if (htmlspot<0){
+
+                        System.out.println(html.substring( 0,htmlspot2));
+
+                    }
+                    else if(htmlspot2<0){
+                        System.out.println(html.substring( 0,htmlspot));
+
+                    } else if(htmlspot>htmlspot2)
+                    {
+                        System.out.println(html.substring( 0,htmlspot2));
+                    } else {
+                        System.out.println(html.substring( 0,htmlspot));
+
+
+                    }
 
 
                 }
