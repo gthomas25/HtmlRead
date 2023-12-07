@@ -26,8 +26,8 @@ public class HtmlRead {
                     int htmlspot= html.indexOf("\"" );
                     int htmlspot2= html.indexOf("'" );
 
-                   // System.out.println(htmlspot);
-                   // System.out.println(htmlspot2);
+                    // System.out.println(htmlspot);
+                    // System.out.println(htmlspot2);
                     if (htmlspot<0){
 
                         System.out.println(html.substring( 0,htmlspot2));
@@ -57,6 +57,3 @@ public class HtmlRead {
         }
 
     }
-
-}
-
