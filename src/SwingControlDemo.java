@@ -16,6 +16,9 @@ public class SwingControlDemo implements ActionListener {
     private JMenu file, edit, help;
     private JMenuItem cut, copy, paste, selectAll;
     private JTextArea ta; //typing area
+    private JTextArea te; //typing area
+
+    private JTextArea ti; //typing area
     private int WIDTH=800;
     private int HEIGHT=700;
 
@@ -58,9 +61,15 @@ public class SwingControlDemo implements ActionListener {
         //end menu at top
 
         ta = new JTextArea("url");
+        ti = new JTextArea("Resutlts");
         ta.setBounds(50, 5, WIDTH-100, HEIGHT-50);
+        ti.setBounds(50, 5, WIDTH-100, HEIGHT-50);
+        te = new JTextArea("keyword");
+        te.setBounds(50, 5, WIDTH-100, HEIGHT-50);
         mainFrame.add(mb);  //add menu bar
         mainFrame.add(ta);//add typing area
+        mainFrame.add(ti);//add typing area
+        mainFrame.add(te);//add typing area
         mainFrame.setJMenuBar(mb); //set menu bar
 
         statusLabel = new JLabel("", JLabel.CENTER);
@@ -83,7 +92,7 @@ public class SwingControlDemo implements ActionListener {
 
         JButton Date = new JButton("Date");
         JButton URL = new JButton("URL");
-        JButton Keyboard = new JButton("Keyboard");
+        JButton keyword = new JButton("keyword");
         JButton Go = new JButton("Go");
         JButton Results = new JButton("Results");
 
@@ -91,20 +100,20 @@ public class SwingControlDemo implements ActionListener {
 
         Date.setActionCommand("Date");
         URL.setActionCommand("URL");
-        Keyboard.setActionCommand("Keyboard");
+        keyword.setActionCommand("keyword");
         Go.setActionCommand("Go");
         Results.setActionCommand("Results");
 
 
         Date.addActionListener(new ButtonClickListener());
         URL.addActionListener(new ButtonClickListener());
-        Keyboard.addActionListener(new ButtonClickListener());
+        keyword.addActionListener(new ButtonClickListener());
         Go.addActionListener(new ButtonClickListener());
         Results.addActionListener(new ButtonClickListener());
 
         controlPanel.add(Date);
         controlPanel.add(URL);
-        controlPanel.add(Keyboard);
+        controlPanel.add(keyword);
         controlPanel.add(Go);
         controlPanel.add(Results);
 
@@ -130,9 +139,12 @@ public class SwingControlDemo implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 if(e.getActionCommand().equals("Go")) {
     try {
+
+        String link = ta.getText();
+        String keyword = te.getText();
         System.out.println();
         System.out.print("hello \n");
-        URL url = new URL("https://www.milton.edu/");
+        URL url = new URL(link);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(url.openStream())
         );
@@ -148,24 +160,31 @@ if(e.getActionCommand().equals("Go")) {
 //                 System.out.println(htmlspot);
 //                 System.out.println(htmlspot2);
                 if (htmlspot < 0) {
-                    if (html.substring(0, htmlspot2).contains("athletics")) {
+                    if (html.substring(0, htmlspot2).contains(keyword)) {
                         System.out.println(html.substring(0, htmlspot2));
+                        ti.append(html.substring(0, htmlspot2)+"\n");
                     }
 
 
                 } else if (htmlspot2 < 0) {
-                    if (html.substring(0, htmlspot).contains("athletics")) {
+                    if (html.substring(0, htmlspot).contains(keyword)) {
                         System.out.println(html.substring(0, htmlspot));
+                        ti.append(html.substring(0, htmlspot)+"\n");
+
                     }
 
                 } else if (htmlspot > htmlspot2) {
-                    if (html.substring(0, htmlspot2).contains("athletics")) {
+                    if (html.substring(0, htmlspot2).contains(keyword)) {
                         System.out.println(html.substring(0, htmlspot2));
+                        ti.append(html.substring(0, htmlspot2)+"\n");
                     }
 
                 } else {
-                    if (html.substring(0, htmlspot).contains("athletics")) {
+                    if (html.substring(0, htmlspot).contains(keyword)) {
                         System.out.println(html.substring(0, htmlspot));
+                        ti.append(html.substring(0, htmlspot)+"\n");
+
+
                     }
 
 
@@ -186,7 +205,7 @@ if(e.getActionCommand().equals("Go")) {
 //
 //            if (command.equals("Date")) {
 //                statusLabel.setText("URL");
-//            } else if (command.equals("Keyboard")) {
+//            } else if (command.equals("keyword")) {
 //                statusLabel.setText("GO.");
 //            } else if (command.equals("Cancel")) {
 //                statusLabel.setText("Cancel Button clicked.");
